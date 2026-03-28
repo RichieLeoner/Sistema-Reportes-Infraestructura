@@ -58,10 +58,11 @@ class User extends Authenticatable
 
     /**
      * Relación: Un usuario tiene muchas notificaciones
+     * Nota: Usamos notifiable (polimórfica) en lugar de user_id
      */
     public function notifications()
     {
-        return $this->hasMany(DatabaseNotification::class);
+        return $this->morphMany(DatabaseNotification::class, 'notifiable');
     }
 
     /**
