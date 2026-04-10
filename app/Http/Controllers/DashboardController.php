@@ -57,16 +57,17 @@ class DashboardController extends Controller
             ->get();
 
         // Gráfico: Reportes por estado
-        $reportesPorEstado = Ticket::selectRaw('status, count(*) as count')
+        // Usar Query Builder para evitar los casts a enum y devolver claves string simples
+        $reportesPorEstado = DB::table('tickets')
+            ->select('status', DB::raw('count(*) as count'))
             ->groupBy('status')
-            ->get()
             ->pluck('count', 'status')
             ->toArray();
 
         // Gráfico: Reportes por prioridad
-        $reportesPorPrioridad = Ticket::selectRaw('priority, count(*) as count')
+        $reportesPorPrioridad = DB::table('tickets')
+            ->select('priority', DB::raw('count(*) as count'))
             ->groupBy('priority')
-            ->get()
             ->pluck('count', 'priority')
             ->toArray();
 

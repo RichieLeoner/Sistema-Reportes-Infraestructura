@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir *)",
+      "Bash(dir *)",
+      "Bash(wc *)",
+      "Bash(findstr *)",
+      "Bash(php *)",
+      "Bash(move *)",
+      "Bash(composer *)",
+      "Bash(del *)",
+      "Bash(rmdir *)",
+      "Bash(echo *)",
+      "Bash(icacls *)",
+      "Bash(takeown *)",
+      "Bash(type *)",
+      "Bash(robocopy *)",
+      "Bash(copy *)"
+    ]
+  },
+  "$version": 3
+}

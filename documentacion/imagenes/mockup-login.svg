@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Fondo -->
+  <rect width="800" height="600" fill="#f3f4f6"/>
+  
+  <!-- Título -->
+  <text x="400" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1e40af">MOCKUP - LOGIN</text>
+  
+  <!-- Contenedor del Login -->
+  <rect x="250" y="80" width="300" height="400" rx="10" fill="white" stroke="#e5e7eb" stroke-width="2"/>
+  
+  <!-- Header del Login -->
+  <rect x="250" y="80" width="300" height="80" rx="10" fill="#1e40af"/>
+  <rect x="250" y="150" width="300" height="40" fill="#1e40af"/>
+  <text x="400" y="115" text-anchor="middle" font-size="28" fill="white">🏛️</text>
+  <text x="400" y="145" text-anchor="middle" font-size="14" font-weight="bold" fill="white">ITSC</text>
+  
+  <!-- Título Login -->
+  <text x="400" y="195" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f2937">Iniciar Sesión</text>
+  <text x="400" y="215" text-anchor="middle" font-size="11" fill="#6b7280">Ingresa tus credenciales</text>
+  
+  <!-- Campo Email -->
+  <rect x="280" y="235" width="240" height="40" rx="5" fill="#f9fafb" stroke="#d1d5db"/>
+  <text x="290" y="245" font-size="9" fill="#6b7280">Email</text>
+  <text x="295" y="265" font-size="12" fill="#9ca3af">usuario@itsc.edu.do</text>
+  <text x="505" y="260" font-size="14" fill="#6b7280">✉️</text>
+  
+  <!-- Campo Password -->
+  <rect x="280" y="290" width="240" height="40" rx="5" fill="#f9fafb" stroke="#d1d5db"/>
+  <text x="290" y="300" font-size="9" fill="#6b7280">Contraseña</text>
+  <text x="295" y="320" font-size="12" fill="#9ca3af">••••••••</text>
+  <text x="505" y="315" font-size="14" fill="#6b7280">🔒</text>
+  
+  <!-- Checkbox Recordar -->
+  <rect x="280" y="345" width="14" height="14" rx="3" fill="#3b82f6"/>
+  <text x="300" y="356" font-size="10" fill="#374151">Recordarme</text>
+  
+  <!-- Botón Login -->
+  <rect x="280" y="375" width="240" height="45" rx="5" fill="#3b82f6"/>
+  <text x="400" y="403" text-anchor="middle" font-size="13" font-weight="bold" fill="white">INGRESAR</text>
+  
+  <!-- Enlace Registro -->
+  <text x="400" y="445" text-anchor="middle" font-size="11" fill="#6b7280">¿No tienes cuenta?</text>
+  <text x="400" y="460" text-anchor="middle" font-size="11" fill="#3b82f6" font-weight="bold" style="cursor:pointer">Registrarse</text>
+  
+  <!-- Enlace Recuperar -->
+  <text x="400" y="485" text-anchor="middle" font-size="10" fill="#9ca3af">¿Olvidaste tu contraseña?</text>
+  
+  <!-- Footer -->
+  <text x="400" y="520" text-anchor="middle" font-size="9" fill="#9ca3af">Sistema de Reporte de Infraestructura</text>
+  <text x="400" y="535" text-anchor="middle" font-size="9" fill="#9ca3af">ITSC © 2026</text>
+  
+  <!-- Llamadas -->
+  <line x1="240" y1="255" x2="200" y2="255" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="190" y="258" text-anchor="end" font-size="10" fill="#ef4444">Campo email</text>
+  
+  <line x1="240" y1="310" x2="200" y2="310" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="190" y="313" text-anchor="end" font-size="10" fill="#ef4444">Campo password</text>
+  
+  <line x1="270" y1="400" x2="200" y2="400" stroke="#10b981" stroke-width="1.5"/>
+  <text x="190" y="403" text-anchor="end" font-size="10" fill="#10b981">Botón submit</text>
+  
+  <line x1="560" y1="400" x2="600" y2="400" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="610" y="403" font-size="10" fill="#8b5cf6">Enlace a registro</text>
+</svg>

@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRS - Sistema de Reporte de Infraestructura - Versión PDF</title>
+    <style>
+        :root {
+            --primary-color: #1e40af;
+            --secondary-color: #3b82f6;
+            --text-color: #000000;
+            --border-color: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        @page {
+            size: letter;
+            margin: 2.54cm;
+            
+            @top-center {
+                content: "Sistema de Reporte de Problemas de Infraestructura";
+                font-size: 9pt;
+                color: #666;
+            }
+            
+            @bottom-center {
+                content: "Página " counter(page) " de " counter(pages);
+                font-size: 9pt;
+                color: #666;
+            }
+        }
+
+        body {
+            font-family: 'Arial', 'Times New Roman', serif;
+            font-size: 12pt;
+            line-height: 1.5;
+            color: var(--text-color);
+            background: white;
+            text-align: justify;
+        }
+
+        /* Portada */
+        .portada {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            page-break-after: always;
+            border: 3px double #1e40af;
+            padding: 40px;
+            margin: -2.54cm;
+            background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+        }
+
+        .portada .logo-placeholder {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .portada h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            margin: 20px 0;
+            color: var(--primary-color);
+            text-transform: uppercase;
+        }
+
+        .portada h2 {
+            font-size: 14pt;
+            font-weight: normal;
+            margin: 15px 0;
+        }
+
+        .portada .subtitulo {
+            font-size: 11pt;
+            font-style: italic;
+            margin: 30px 0;
+            color: #444;
+        }
+
+        .portada .info-tabla {
+            margin: 40px 0;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .portada .info-tabla table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .portada .info-tabla td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .portada .info-tabla td:first-child {
+            font-weight: bold;
+            text-align: right;
+            width: 140px;
+        }
+
+        .portada .info-tabla td:last-child {
+            text-align: left;
+            padding-left: 15px;
+        }
+
+        .portada .footer {
+            margin-top: 50px;
+            font-size: 10pt;
+            color: #666;
+        }
+
+        /* Salto de página */
+        .page-break {
+            page-break-before: always;
+        }
+
+        /* Secciones */
+        .seccion {
+            margin: 30px 0;
+            page-break-inside: avoid;
+        }
+
+        .seccion h1 {
+            font-size: 16pt;
+            font-weight: bold;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin: 30px 0 20px 0;
+            page-break-after: avoid;
+        }
+
+        .seccion h2 {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #333;
+            margin: 25px 0 15px 0;
+            page-break-after: avoid;
+        }
+
+        .seccion h3 {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #444;
+            margin: 20px 0 10px 0;
+            page-break-after: avoid;
+        }
+
+        .seccion p {
+            margin: 10px 0;
+            text-indent: 1.27cm;
+        }
+
+        /* Tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 10pt;
+            page-break-inside: auto;
+        }
+
+        table thead {
+            page-break-inside: avoid;
+            page-break-after: avoid;
+        }
+
+        table tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+
+        table th {
+            background-color: var(--primary-color) !important;
+            color: white !important;
+            padding: 10px;
+            text-align: left;
+            font-weight: bold;
+            border: 1px solid #000;
+        }
+
+        table td {
+            padding: 8px 10px;
+            border: 1px solid #999;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f5f5f5 !important;
+        }
+
+        /* Listas */
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+
+        ul li, ol li {
+            margin: 5px 0;
+        }
+
+        /* Espacios para imágenes */
+        .imagen-placeholder {
+            border: 2px dashed #999;
+            background: #f9f9f9;
+            padding: 40px 20px;
+            text-align: center;
+            margin: 20px 0;
+            color: #666;
+            page-break-inside: avoid;
+        }
+
+        .imagen-placeholder strong {
+            display: block;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 9pt;
+            font-weight: bold;
+            margin: 2px;
+        }
+
+        .badge-alta {
+            background-color: #ef4444 !important;
+            color: white !important;
+        }
+
+        .badge-media {
+            background-color: #3b82f6 !important;
+            color: white !important;
+        }
+
+        .badge-baja {
+            background-color: #6b7280 !important;
+            color: white !important;
+        }
+
+        .badge-success {
+            background-color: #10b981 !important;
+            color: white !important;
+        }
+
+        /* Código */
+        pre {
+            background: #f5f5f5 !important;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 9pt;
+            line-height: 1.4;
+            overflow-x: auto;
+            page-break-inside: avoid;
+        }
+
+        code {
+            background: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 10pt;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Tabla de contenidos */
+        .tabla-contenidos {
+            background: #f9fafb;
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .tabla-contenidos h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .tabla-contenidos ul {
+            columns: 2;
+            column-gap: 30px;
+        }
+
+        /* Utilidades */
+        .text-center { text-align: center; }
+        .mt-20 { margin-top: 20px; }
+        .mb-20 { margin-bottom: 20px; }
+        
+        /* Checkmarks */
+        .checkmark::before {
+            content: "✓ ";
+            color: #10b981;
+        }
+        
+        .crossmark::before {
+            content: "✗ ";
+            color: #ef4444;
+        }
+
+        /* Footer de documento */
+        .documento-footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            page-break-before: always;
+        }
+
+        .documento-footer h2 {
+            color: white !important;
+            font-size: 14pt;
+            margin-bottom: 10px;
+        }
+
+        .documento-footer p {
+            text-align: center;
+            text-indent: 0;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PORTADA -->
+    <header class="portada">
+        <div class="logo-placeholder">🏛️</div>
+        
+        <h1>Instituto Técnico Superior Comunitario (ITSC)</h1>
+        <h2>SOF-111 – Construcción de Software</h2>
+        <p class="subtitulo">Cuatrimestre 2026-1</p>
+        
+        <h1 style="margin-top: 50px; font-size: 16pt;">SISTEMA DE REPORTE DE PROBLEMAS DE INFRAESTRUCTURA</h1>
+        <p class="subtitulo">Documentación Técnica SRS<br>Software Requirements Specification</p>
+        
+        <div class="info-tabla">
+            <table>
+                <tr>
+                    <td><strong>Estudiante:</strong></td>
+                    <td>[Nombre del Estudiante]</td>
+                </tr>
+                <tr>
+                    <td><strong>Matrícula:</strong></td>
+                    <td>[Matrícula]</td>
+                </tr>
+                <tr>
+                    <td><strong>Cuatrimestre:</strong></td>
+                    <td>2026-1</td>
+                </tr>
+                <tr>
+                    <td><strong>Profesor:</strong></td>
+                    <td>[Nombre del Profesor]</td>
+                </tr>
+                <tr>
+                    <td><strong>Asignatura:</strong></td>
+                    <td>SOF-111 - Construcción de Software</td>
+                </tr>
+                <tr>
+                    <td><strong>Fecha:</strong></td>
+                    <td>31 de marzo de 2026</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="footer">
+            <p>San Cristóbal, República Dominicana</p>
+            <p>Marzo 2026</p>
+        </div>
+    </header>
+
+    <!-- TABLA DE CONTENIDOS -->
+    <div class="seccion">
+        <h1>TABLA DE CONTENIDOS</h1>
+        <div class="tabla-contenidos">
+            <h3>📋 Secciones del Documento</h3>
+            <ul>
+                <li>1. Portada</li>
+                <li>2. Introducción</li>
+                <li>3. Problema a Resolver</li>
+                <li>4. Objetivo del Sistema</li>
+                <li>5. Alcance del Sistema</li>
+                <li>6. Actores del Sistema</li>
+                <li>7. Requerimientos Funcionales</li>
+                <li>8. Requerimientos No Funcionales</li>
+                <li>9. Casos de Uso Detallados</li>
+                <li>10. Diagramas del Sistema</li>
+                <li>11. Modelo de Datos</li>
+                <li>12. Mockups</li>
+                <li>13. Arquitectura MVC</li>
+                <li>14. Conclusión</li>
+                <li>15. Anexos</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 2: INTRODUCCIÓN -->
+    <div class="seccion">
+        <h1>2. INTRODUCCIÓN</h1>
+        
+        <h2>2.1 Propósito del Documento</h2>
+        <p>El presente documento tiene como propósito especificar de manera completa y detallada los requisitos de software para el Sistema de Reporte de Problemas de Infraestructura del Instituto Técnico Superior Comunitario (ITSC). Esta especificación de requisitos de software (SRS) sirve como un acuerdo formal entre el equipo de desarrollo y las partes interesadas, describiendo las funcionalidades, restricciones y comportamientos esperados del sistema.</p>
+        
+        <p>Este documento está dirigido a los evaluadores de la asignatura SOF-111 (Construcción de Software), así como a futuros desarrolladores que puedan dar continuidad al proyecto en cuatrimestres posteriores.</p>
+        
+        <h2>2.2 Descripción General del Sistema</h2>
+        <p>El Sistema de Reporte de Problemas de Infraestructura es una aplicación web diseñada para digitalizar y optimizar el proceso de comunicación entre la comunidad educativa del ITSC y el departamento de mantenimiento. La plataforma permite a estudiantes, profesores y personal administrativo reportar incidencias relacionadas con la infraestructura del instituto de manera rápida y sencilla.</p>
+        
+        <h2>2.3 Tecnologías Utilizadas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tecnología</th>
+                    <th>Versión</th>
+                    <th>Propósito</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>PHP</td>
+                    <td>8.2+</td>
+                    <td>Lenguaje de programación del backend</td>
+                </tr>
+                <tr>
+                    <td>Laravel</td>
+                    <td>12.x</td>
+                    <td>Framework PHP para desarrollo web</td>
+                </tr>
+                <tr>
+                    <td>MySQL</td>
+                    <td>8.0+</td>
+                    <td>Sistema de gestión de base de datos</td>
+                </tr>
+                <tr>
+                    <td>Tailwind CSS</td>
+                    <td>CDN</td>
+                    <td>Framework de CSS para diseño</td>
+                </tr>
+                <tr>
+                    <td>Blade</td>
+                    <td>Laravel</td>
+                    <td>Motor de plantillas</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>2.4 Actores Principales</h2>
+        <ol>
+            <li><strong>Administrador:</strong> Acceso completo a todas las funcionalidades</li>
+            <li><strong>Personal de Mantenimiento:</strong> Gestiona y actualiza reportes</li>
+            <li><strong>Estudiante/Profesor:</strong> Crea reportes y consulta los propios</li>
+        </ol>
+    </div>
+
+    <!-- SECCIÓN 3: PROBLEMA A RESOLVER -->
+    <div class="seccion">
+        <h1>3. PROBLEMA A RESOLVER</h1>
+        
+        <h2>3.1 Contexto Actual</h2>
+        <p>El proceso de reporte y atención de problemas de infraestructura se ha llevado a cabo tradicionalmente mediante métodos manuales y descentralizados, presentando las siguientes limitaciones:</p>
+        
+        <h2>3.2 Limitaciones Identificadas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Limitación</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><strong>Descentralización</strong></td>
+                    <td>Reportes en múltiples puntos físicos sin registro centralizado</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><strong>Pérdida de información</strong></td>
+                    <td>Formularios en papel se extravían o deterioran</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><strong>Falta de seguimiento</strong></td>
+                    <td>El reportante no conoce el estado de su reporte</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><strong>Ineficiencia temporal</strong></td>
+                    <td>Tiempo excesivo entre reporte y atención</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><strong>Ausencia de priorización</strong></td>
+                    <td>Sin mecanismo para priorizar reportes urgentes</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td><strong>Falta de estadísticas</strong></td>
+                    <td>Sin reportes estadísticos para decisiones</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>3.3 Impacto del Problema</h2>
+        <h3>En Estudiantes y Profesores:</h3>
+        <ul>
+            <li>Frustración al reportar problemas</li>
+            <li>Percepción negativa de la institución</li>
+            <li>Condiciones educativas afectadas</li>
+        </ul>
+        
+        <h3>En Personal de Mantenimiento:</h3>
+        <ul>
+            <li>Carga administrativa excesiva</li>
+            <li>Dificultad para priorizar</li>
+            <li>Problemas de coordinación</li>
+        </ul>
+        
+        <h3>En Administración:</h3>
+        <ul>
+            <li>Falta de datos para planificación</li>
+            <li>Imposibilidad de monitoreo</li>
+            <li>Quejas de la comunidad</li>
+        </ul>
+    </div>
+
+    <!-- SECCIÓN 4: OBJETIVO DEL SISTEMA -->
+    <div class="seccion">
+        <h1>4. OBJETIVO DEL SISTEMA</h1>
+        
+        <h2>4.1 Objetivo General</h2>
+        <p style="background: #f0f9ff; padding: 15px; border-left: 4px solid #1e40af;">Desarrollar e implementar un sistema web de gestión de reportes de infraestructura basado en la arquitectura MVC utilizando el framework Laravel, que permita a la comunidad del ITSC reportar, dar seguimiento y gestionar eficientemente las incidencias, centralizando la información en una base de datos única y proporcionando herramientas estadísticas para la toma de decisiones.</p>
+        
+        <h2>4.2 Objetivos Específicos</h2>
+        <h3>Funcionales:</h3>
+        <ul>
+            <li><strong>OF-01:</strong> Implementar sistema de autenticación</li>
+            <li><strong>OF-02:</strong> Gestionar creación de reportes</li>
+            <li><strong>OF-03:</strong> Visualizar listado de reportes</li>
+            <li><strong>OF-04:</strong> Actualizar estado de tickets</li>
+            <li><strong>OF-05:</strong> Consultar historial de incidencias</li>
+            <li><strong>OF-06:</strong> Implementar control de roles</li>
+        </ul>
+        
+        <h3>Técnicos:</h3>
+        <ul>
+            <li><strong>OT-01:</strong> Implementar arquitectura MVC</li>
+            <li><strong>OT-02:</strong> Utilizar framework Laravel 12</li>
+            <li><strong>OT-03:</strong> Diseñar base de datos MySQL</li>
+            <li><strong>OT-04:</strong> Aplicar validaciones del servidor</li>
+            <li><strong>OT-05:</strong> Garantizar seguridad con bcrypt</li>
+        </ul>
+        
+        <h2>4.3 Alcance</h2>
+        <p><span class="badge badge-success">✓</span> Autenticación y sesiones</p>
+        <p><span class="badge badge-success">✓</span> Creación de tickets</p>
+        <p><span class="badge badge-success">✓</span> Listado con filtros</p>
+        <p><span class="badge badge-success">✓</span> Cambio de estados</p>
+        <p><span class="badge badge-success">✓</span> Historial</p>
+        <p><span class="badge badge-success">✓</span> Control de roles</p>
+        <p><span class="badge" style="background:#ef4444;color:white;">✗</span> Mantenimiento preventivo (futuro)</p>
+        <p><span class="badge" style="background:#ef4444;color:white;">✗</span> App móvil (futuro)</p>
+    </div>
+
+    <!-- SECCIÓN 5: ALCANCE DEL SISTEMA -->
+    <div class="seccion">
+        <h1>5. ALCANCE DEL SISTEMA</h1>
+        
+        <h2>5.1 Alcance Funcional</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Funcionalidad</th>
+                    <th>Prioridad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>AF-01</td>
+                    <td>Autenticación de usuarios</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                </tr>
+                <tr>
+                    <td>AF-02</td>
+                    <td>Gestión de sesiones</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                </tr>
+                <tr>
+                    <td>AF-03</td>
+                    <td>Creación de reportes</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                </tr>
+                <tr>
+                    <td>AF-04</td>
+                    <td>Listado de reportes</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                </tr>
+                <tr>
+                    <td>AF-05</td>
+                    <td>Edición de estado</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                </tr>
+                <tr>
+                    <td>AF-06</td>
+                    <td>Historial con filtros</td>
+                    <td><span class="badge badge-media">Media</span></td>
+                </tr>
+                <tr>
+                    <td>AF-07</td>
+                    <td>Notificaciones</td>
+                    <td><span class="badge badge-media">Media</span></td>
+                </tr>
+                <tr>
+                    <td>AF-08</td>
+                    <td>Dashboard por rol</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>5.2 Alcance Técnico</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Tecnología</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lenguaje</td>
+                    <td>PHP 8.2+</td>
+                </tr>
+                <tr>
+                    <td>Framework</td>
+                    <td>Laravel 12.x</td>
+                </tr>
+                <tr>
+                    <td>Base de Datos</td>
+                    <td>MySQL 8.0+</td>
+                </tr>
+                <tr>
+                    <td>Arquitectura</td>
+                    <td>MVC</td>
+                </tr>
+                <tr>
+                    <td>Frontend</td>
+                    <td>Tailwind CSS</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>5.3 Criterios de Aceptación</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Criterio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>CA-01</td>
+                    <td>Login funcional con credenciales válidas</td>
+                </tr>
+                <tr>
+                    <td>CA-02</td>
+                    <td>Registro de nuevos usuarios</td>
+                </tr>
+                <tr>
+                    <td>CA-03</td>
+                    <td>Diferenciación correcta de 3 roles</td>
+                </tr>
+                <tr>
+                    <td>CA-04</td>
+                    <td>Creación de tickets funcional</td>
+                </tr>
+                <tr>
+                    <td>CA-05</td>
+                    <td>Cambio de estados operativo</td>
+                </tr>
+                <tr>
+                    <td>CA-06</td>
+                    <td>Contraseñas encriptadas con bcrypt</td>
+                </tr>
+                <tr>
+                    <td>CA-07</td>
+                    <td>Arquitectura MVC implementada</td>
+                </tr>
+                <tr>
+                    <td>CA-08</td>
+                    <td>Documentación SRS completa (15 secciones)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SECCIÓN 6: ACTORES -->
+    <div class="seccion">
+        <h1>6. ACTORES DEL SISTEMA</h1>
+        
+        <h2>6.1 Administrador</h2>
+        <table>
+            <tr>
+                <td><strong>Descripción:</strong></td>
+                <td>Usuario con acceso completo a todas las funcionalidades</td>
+            </tr>
+            <tr>
+                <td><strong>Permisos:</strong></td>
+                <td>Gestionar usuarios, reportes, estadísticas, configuración</td>
+            </tr>
+        </table>
+        
+        <h2>6.2 Personal de Mantenimiento</h2>
+        <table>
+            <tr>
+                <td><strong>Descripción:</strong></td>
+                <td>Usuario encargado de atender reportes</td>
+            </tr>
+            <tr>
+                <td><strong>Permisos:</strong></td>
+                <td>Ver todos los reportes, cambiar estados y prioridades</td>
+            </tr>
+        </table>
+        
+        <h2>6.3 Estudiante/Profesor</h2>
+        <table>
+            <tr>
+                <td><strong>Descripción:</strong></td>
+                <td>Usuario final que reporta problemas</td>
+            </tr>
+            <tr>
+                <td><strong>Permisos:</strong></td>
+                <td>Crear reportes, ver solo los propios, consultar historial</td>
+            </tr>
+        </table>
+        
+        <h2>6.4 Tabla Comparativa</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Característica</th>
+                    <th>Admin</th>
+                    <th>Mant.</th>
+                    <th>Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Crear reportes</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✓</td>
+                </tr>
+                <tr>
+                    <td>Ver todos los reportes</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✗</td>
+                </tr>
+                <tr>
+                    <td>Editar estado</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✗</td>
+                </tr>
+                <tr>
+                    <td>Eliminar reportes</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✗</td>
+                    <td class="text-center">✗</td>
+                </tr>
+                <tr>
+                    <td>Gestionar usuarios</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✗</td>
+                    <td class="text-center">✗</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA DIAGRAMA DE ACTORES]</strong>
+            <small>Insertar diagrama con los 3 actores y sus relaciones con el sistema</small>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 7: REQUERIMIENTOS FUNCIONALES -->
+    <div class="seccion">
+        <h1>7. REQUERIMIENTOS FUNCIONALES</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Requerimiento</th>
+                    <th>Prioridad</th>
+                    <th>Actor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>RF-01</td>
+                    <td><strong>Autenticación:</strong> Login con email y contraseña</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                    <td>Todos</td>
+                </tr>
+                <tr>
+                    <td>RF-02</td>
+                    <td><strong>Registro:</strong> Nuevos usuarios con validación de email único</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                    <td>Público</td>
+                </tr>
+                <tr>
+                    <td>RF-03</td>
+                    <td><strong>Gestión de Sesiones:</strong> Mantener sesión activa</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                    <td>Todos</td>
+                </tr>
+                <tr>
+                    <td>RF-04</td>
+                    <td><strong>Cerrar Sesión:</strong> Logout seguro</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                    <td>Todos</td>
+                </tr>
+                <tr>
+                    <td>RF-05</td>
+                    <td><strong>Crear Reporte:</strong> Formulario con ubicación, descripción, prioridad, foto</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                    <td>Usuario</td>
+                </tr>
+                <tr>
+                    <td>RF-06</td>
+                    <td><strong>Listar Reportes:</strong> Tabla con filtros según rol</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                    <td>Todos</td>
+                </tr>
+                <tr>
+                    <td>RF-07</td>
+                    <td><strong>Ver Detalle:</strong> Información completa del reporte</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                    <td>Todos</td>
+                </tr>
+                <tr>
+                    <td>RF-08</td>
+                    <td><strong>Cambiar Estado:</strong> Pendiente → En Proceso → Resuelto</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                    <td>Admin/Mant.</td>
+                </tr>
+                <tr>
+                    <td>RF-09</td>
+                    <td><strong>Cambiar Prioridad:</strong> Baja, Media, Alta</td>
+                    <td><span class="badge badge-media">Media</span></td>
+                    <td>Admin/Mant.</td>
+                </tr>
+                <tr>
+                    <td>RF-10</td>
+                    <td><strong>Eliminar Reporte:</strong> Solo Administrador</td>
+                    <td><span class="badge badge-media">Media</span></td>
+                    <td>Admin</td>
+                </tr>
+                <tr>
+                    <td>RF-11</td>
+                    <td><strong>Historial:</strong> Consulta con filtros avanzados</td>
+                    <td><span class="badge badge-media">Media</span></td>
+                    <td>Usuario</td>
+                </tr>
+                <tr>
+                    <td>RF-12</td>
+                    <td><strong>Búsqueda:</strong> Por texto en ubicación/descripción</td>
+                    <td><span class="badge badge-media">Media</span></td>
+                    <td>Todos</td>
+                </tr>
+                <tr>
+                    <td>RF-13</td>
+                    <td><strong>Filtrar por Estado:</strong> Pendiente, En Proceso, Resuelto</td>
+                    <td><span class="badge badge-media">Media</span></td>
+                    <td>Todos</td>
+                </tr>
+                <tr>
+                    <td>RF-14</td>
+                    <td><strong>Filtrar por Prioridad:</strong> Baja, Media, Alta</td>
+                    <td><span class="badge badge-baja">Baja</span></td>
+                    <td>Todos</td>
+                </tr>
+                <tr>
+                    <td>RF-15</td>
+                    <td><strong>Control de Roles:</strong> Restringir acceso según rol</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                    <td>Sistema</td>
+                </tr>
+                <tr>
+                    <td>RF-16</td>
+                    <td><strong>Validaciones:</strong> Del lado del servidor</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                    <td>Sistema</td>
+                </tr>
+                <tr>
+                    <td>RF-17</td>
+                    <td><strong>Notificaciones:</strong> Cuando se crea reporte</td>
+                    <td><span class="badge badge-media">Media</span></td>
+                    <td>Sistema</td>
+                </tr>
+                <tr>
+                    <td>RF-18</td>
+                    <td><strong>Notificaciones:</strong> Cuando se actualiza reporte</td>
+                    <td><span class="badge badge-media">Media</span></td>
+                    <td>Sistema</td>
+                </tr>
+                <tr>
+                    <td>RF-19</td>
+                    <td><strong>Dashboard:</strong> Personalizado por rol</td>
+                    <td><span class="badge badge-alta">Alta</span></td>
+                    <td>Todos</td>
+                </tr>
+                <tr>
+                    <td>RF-20</td>
+                    <td><strong>Subida de Archivos:</strong> Foto opcional del reporte</td>
+                    <td><span class="badge badge-media">Media</span></td>
+                    <td>Usuario</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SECCIÓN 8: REQUERIMIENTOS NO FUNCIONALES -->
+    <div class="seccion">
+        <h1>8. REQUERIMIENTOS NO FUNCIONALES</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Categoría</th>
+                    <th>Requerimiento</th>
+                    <th>Criterio de Medición</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>RNF-01</td>
+                    <td>Arquitectura</td>
+                    <td>Implementar patrón MVC</td>
+                    <td>Separación de carpetas visible</td>
+                </tr>
+                <tr>
+                    <td>RNF-02</td>
+                    <td>Tecnología</td>
+                    <td>Laravel 12 o superior</td>
+                    <td>Verificación en composer.json</td>
+                </tr>
+                <tr>
+                    <td>RNF-03</td>
+                    <td>Base de Datos</td>
+                    <td>MySQL/MariaDB</td>
+                    <td>Configuración en .env</td>
+                </tr>
+                <tr>
+                    <td>RNF-04</td>
+                    <td>Validaciones</td>
+                    <td>Del lado del servidor</td>
+                    <td>Form Requests en rutas POST/PUT</td>
+                </tr>
+                <tr>
+                    <td>RNF-05</td>
+                    <td>Seguridad</td>
+                    <td>Contraseñas con bcrypt</td>
+                    <td>Hash de 60 caracteres en BD</td>
+                </tr>
+                <tr>
+                    <td>RNF-06</td>
+                    <td>Rendimiento</td>
+                    <td>Carga &lt; 3 segundos</td>
+                    <td>Chrome DevTools, GTmetrix</td>
+                </tr>
+                <tr>
+                    <td>RNF-07</td>
+                    <td>Navegabilidad</td>
+                    <td>Interfaz intuitiva</td>
+                    <td>90% completa tareas sin ayuda</td>
+                </tr>
+                <tr>
+                    <td>RNF-08</td>
+                    <td>Código</td>
+                    <td>Estándares PSR</td>
+                    <td>PHP_CodeSniffer, Laravel Pint</td>
+                </tr>
+                <tr>
+                    <td>RNF-09</td>
+                    <td>Disponibilidad</td>
+                    <td>99% uptime horario académico</td>
+                    <td>Monitoreo de uptime</td>
+                </tr>
+                <tr>
+                    <td>RNF-10</td>
+                    <td>Escalabilidad</td>
+                    <td>Adición de funcionalidades</td>
+                    <td>Nuevos módulos sin modificar núcleo</td>
+                </tr>
+                <tr>
+                    <td>RNF-11</td>
+                    <td>Compatibilidad</td>
+                    <td>Navegadores modernos</td>
+                    <td>Pruebas en 4 navegadores</td>
+                </tr>
+                <tr>
+                    <td>RNF-12</td>
+                    <td>Responsive</td>
+                    <td>Adaptable a dispositivos</td>
+                    <td>Pruebas en diferentes resoluciones</td>
+                </tr>
+                <tr>
+                    <td>RNF-13</td>
+                    <td>Errores</td>
+                    <td>Manejo elegante</td>
+                    <td>Logs en storage/logs/laravel.log</td>
+                </tr>
+                <tr>
+                    <td>RNF-14</td>
+                    <td>Consistencia</td>
+                    <td>Visual en todas las vistas</td>
+                    <td>Uso consistente de Tailwind CSS</td>
+                </tr>
+                <tr>
+                    <td>RNF-15</td>
+                    <td>Accesibilidad</td>
+                    <td>Prácticas básicas web</td>
+                    <td>Herramientas de accesibilidad</td>
+                </tr>
+                <tr>
+                    <td>RNF-16</td>
+                    <td>Mantenibilidad</td>
+                    <td>Código comprensible</td>
+                    <td>Funciones &lt; 50 líneas</td>
+                </tr>
+                <tr>
+                    <td>RNF-17</td>
+                    <td>Portabilidad</td>
+                    <td>Despliegue en diferentes entornos</td>
+                    <td>Configuración vía .env</td>
+                </tr>
+                <tr>
+                    <td>RNF-18</td>
+                    <td>Integridad</td>
+                    <td>Operaciones atómicas</td>
+                    <td>Transacciones de BD</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SECCIÓN 9: CASOS DE USO -->
+    <div class="seccion">
+        <h1>9. CASOS DE USO DETALLADOS</h1>
+        
+        <h2>9.1 CU-01: Iniciar Sesión</h2>
+        <table>
+            <tr>
+                <td><strong>Actor:</strong></td>
+                <td>Todos los usuarios</td>
+            </tr>
+            <tr>
+                <td><strong>Precondición:</strong></td>
+                <td>Usuario registrado en BD</td>
+            </tr>
+            <tr>
+                <td><strong>Postcondición:</strong></td>
+                <td>Usuario autenticado, sesión activa, redirigido a dashboard</td>
+            </tr>
+        </table>
+        
+        <h3>Flujo Principal:</h3>
+        <ol>
+            <li>Usuario navega al sistema</li>
+            <li>Usuario hace clic en "Iniciar Sesión"</li>
+            <li>Usuario ingresa email</li>
+            <li>Usuario ingresa contraseña</li>
+            <li>Usuario hace clic en "Ingresar"</li>
+            <li>Sistema valida credenciales</li>
+            <li>Sistema verifica email en BD</li>
+            <li>Sistema verifica contraseña con bcrypt</li>
+            <li>Sistema determina el rol del usuario</li>
+            <li>Sistema redirige al dashboard correspondiente</li>
+        </ol>
+        
+        <h3>Flujo Alternativo (Credenciales Incorrectas):</h3>
+        <ol>
+            <li>Usuario ingresa credenciales incorrectas</li>
+            <li>Sistema detecta error</li>
+            <li>Sistema muestra: "Estas credenciales no coinciden con nuestros registros"</li>
+            <li>Usuario corrige y reintenta</li>
+        </ol>
+        
+        <h3>Excepciones:</h3>
+        <ul>
+            <li>Usuario no existe → Mensaje genérico de error</li>
+            <li>Cuenta inactiva → "Su cuenta ha sido desactivada"</li>
+            <li>BD no disponible → Error 500</li>
+            <li>Demasiados intentos → Bloqueo temporal (1 min)</li>
+        </ul>
+        
+        <h2>9.2 CU-02: Crear Reporte de Incidencia</h2>
+        <table>
+            <tr>
+                <td><strong>Actor:</strong></td>
+                <td>Estudiante/Profesor</td>
+            </tr>
+            <tr>
+                <td><strong>Precondición:</strong></td>
+                <td>Usuario autenticado</td>
+            </tr>
+            <tr>
+                <td><strong>Postcondición:</strong></td>
+                <td>Ticket creado en estado "Pendiente", notificaciones generadas</td>
+            </tr>
+        </table>
+        
+        <h3>Flujo Principal:</h3>
+        <ol>
+            <li>Usuario navega a reportes</li>
+            <li>Usuario hace clic en "Crear Nuevo Reporte"</li>
+            <li>Usuario selecciona ubicación</li>
+            <li>Usuario ingresa descripción (mín. 10 caracteres)</li>
+            <li>Usuario selecciona prioridad</li>
+            <li>Usuario opcionalmente sube fotografía</li>
+            <li>Usuario hace clic en "Guardar"</li>
+            <li>Sistema valida datos (FormRequest)</li>
+            <li>Sistema guarda en tabla tickets</li>
+            <li>Sistema genera notificaciones</li>
+            <li>Sistema muestra mensaje de éxito</li>
+            <li>Sistema redirige al listado</li>
+        </ol>
+        
+        <h2>9.3 CU-03: Gestionar Estado del Ticket</h2>
+        <table>
+            <tr>
+                <td><strong>Actor:</strong></td>
+                <td>Mantenimiento / Administrador</td>
+            </tr>
+            <tr>
+                <td><strong>Precondición:</strong></td>
+                <td>Ticket existente, usuario autenticado con permisos</td>
+            </tr>
+            <tr>
+                <td><strong>Postcondición:</strong></td>
+                <td>Estado actualizado, notificación al usuario dueño</td>
+            </tr>
+        </table>
+        
+        <h3>Flujo Principal:</h3>
+        <ol>
+            <li>Usuario navega a lista de reportes</li>
+            <li>Usuario identifica ticket a actualizar</li>
+            <li>Usuario hace clic en el ticket</li>
+            <li>Usuario hace clic en "Editar"</li>
+            <li>Usuario selecciona nuevo estado</li>
+            <li>Usuario hace clic en "Guardar Cambios"</li>
+            <li>Sistema valida permisos (middleware)</li>
+            <li>Sistema actualiza registro en BD</li>
+            <li>Sistema genera notificación al usuario</li>
+            <li>Sistema muestra mensaje de éxito</li>
+        </ol>
+    </div>
+
+    <!-- SECCIÓN 10: DIAGRAMAS -->
+    <div class="seccion">
+        <h1>10. DIAGRAMAS DEL SISTEMA</h1>
+        
+        <h2>10.1 Diagrama de Contexto</h2>
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA DIAGRAMA DE CONTEXTO]</strong>
+            <small>Mostrar sistema central conectado con: Estudiante, Mantenimiento, Admin, BD MySQL, Sistema de Archivos</small>
+        </div>
+        
+        <h2>10.2 Diagrama de Casos de Uso</h2>
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA DIAGRAMA DE CASOS DE USO]</strong>
+            <small>3 actores con 6-8 casos: Iniciar Sesión, Crear Reporte, Listar, Cambiar Estado, Historial, Eliminar, Estadísticas</small>
+        </div>
+        
+        <h2>10.3 Diagrama de Clases</h2>
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA DIAGRAMA DE CLASES]</strong>
+            <small>Clases: User, Role, Ticket, Notification + Controladores: AuthController, DashboardController, ReporteController</small>
+        </div>
+        
+        <h2>10.4 Diagrama Entidad-Relación</h2>
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA DER]</strong>
+            <small>Tablas: roles, users, tickets, notifications con PK/FK y relaciones 1:N</small>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 11: MODELO DE DATOS -->
+    <div class="seccion">
+        <h1>11. MODELO DE DATOS</h1>
+        
+        <h2>11.1 Tabla: roles</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Campo</th>
+                    <th>Tipo</th>
+                    <th>PK/FK</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id</td>
+                    <td>BIGINT</td>
+                    <td>PK</td>
+                    <td>Identificador único</td>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td>VARCHAR(50)</td>
+                    <td></td>
+                    <td>Nombre del rol</td>
+                </tr>
+                <tr>
+                    <td>created_at</td>
+                    <td>TIMESTAMP</td>
+                    <td></td>
+                    <td>Fecha creación</td>
+                </tr>
+                <tr>
+                    <td>updated_at</td>
+                    <td>TIMESTAMP</td>
+                    <td></td>
+                    <td>Fecha actualización</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>11.2 Tabla: users</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Campo</th>
+                    <th>Tipo</th>
+                    <th>PK/FK</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id</td>
+                    <td>BIGINT</td>
+                    <td>PK</td>
+                    <td>Identificador único</td>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td>VARCHAR(100)</td>
+                    <td></td>
+                    <td>Nombre completo</td>
+                </tr>
+                <tr>
+                    <td>email</td>
+                    <td>VARCHAR(100)</td>
+                    <td>UNIQUE</td>
+                    <td>Correo electrónico</td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td>VARCHAR(255)</td>
+                    <td></td>
+                    <td>Contraseña bcrypt</td>
+                </tr>
+                <tr>
+                    <td>role_id</td>
+                    <td>BIGINT</td>
+                    <td>FK→roles.id</td>
+                    <td>Referencia al rol</td>
+                </tr>
+                <tr>
+                    <td>created_at</td>
+                    <td>TIMESTAMP</td>
+                    <td></td>
+                    <td>Fecha registro</td>
+                </tr>
+                <tr>
+                    <td>updated_at</td>
+                    <td>TIMESTAMP</td>
+                    <td></td>
+                    <td>Fecha actualización</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>11.3 Tabla: tickets</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Campo</th>
+                    <th>Tipo</th>
+                    <th>PK/FK</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id</td>
+                    <td>BIGINT</td>
+                    <td>PK</td>
+                    <td>Identificador único</td>
+                </tr>
+                <tr>
+                    <td>user_id</td>
+                    <td>BIGINT</td>
+                    <td>FK→users.id</td>
+                    <td>Usuario que reporta</td>
+                </tr>
+                <tr>
+                    <td>location</td>
+                    <td>VARCHAR(150)</td>
+                    <td></td>
+                    <td>Ubicación física</td>
+                </tr>
+                <tr>
+                    <td>description</td>
+                    <td>TEXT</td>
+                    <td></td>
+                    <td>Descripción del problema</td>
+                </tr>
+                <tr>
+                    <td>priority</td>
+                    <td>ENUM</td>
+                    <td></td>
+                    <td>baja/media/alta</td>
+                </tr>
+                <tr>
+                    <td>status</td>
+                    <td>ENUM</td>
+                    <td></td>
+                    <td>pendiente/en_proceso/resuelto</td>
+                </tr>
+                <tr>
+                    <td>photo_path</td>
+                    <td>VARCHAR(255)</td>
+                    <td>NULL</td>
+                    <td>Ruta de foto</td>
+                </tr>
+                <tr>
+                    <td>created_at</td>
+                    <td>TIMESTAMP</td>
+                    <td></td>
+                    <td>Fecha creación</td>
+                </tr>
+                <tr>
+                    <td>updated_at</td>
+                    <td>TIMESTAMP</td>
+                    <td></td>
+                    <td>Fecha actualización</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>11.4 Relaciones</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Relación</th>
+                    <th>Cardinalidad</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>roles → users</td>
+                    <td>1:N</td>
+                    <td>Un rol tiene muchos usuarios</td>
+                </tr>
+                <tr>
+                    <td>users → tickets</td>
+                    <td>1:N</td>
+                    <td>Un usuario tiene muchos tickets</td>
+                </tr>
+                <tr>
+                    <td>users → notifications</td>
+                    <td>1:N</td>
+                    <td>Un usuario tiene muchas notificaciones</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SECCIÓN 12: MOCKUPS -->
+    <div class="seccion">
+        <h1>12. MOCKUPS</h1>
+        
+        <h2>12.1 Login</h2>
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA MOCKUP DE LOGIN]</strong>
+            <small>Formulario centrado con email, contraseña, "Recordarme", botón "Ingresar"</small>
+        </div>
+        
+        <h2>12.2 Dashboard Usuario</h2>
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA MOCKUP DE DASHBOARD USUARIO]</strong>
+            <small>Tarjetas: Mis Reportes, Pendientes, En Proceso, Resueltos + tabla últimos reportes</small>
+        </div>
+        
+        <h2>12.3 Formulario Nuevo Reporte</h2>
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA MOCKUP DE FORMULARIO]</strong>
+            <small>Campos: Ubicación, Descripción, Prioridad, Foto (file input)</small>
+        </div>
+        
+        <h2>12.4 Detalle de Reporte</h2>
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA MOCKUP DE DETALLE]</strong>
+            <small>Info completa, badges de estado/prioridad, foto, botones de acción</small>
+        </div>
+        
+        <h2>12.5 Dashboard Mantenimiento</h2>
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA MOCKUP DE DASHBOARD MANTENIMIENTO]</strong>
+            <small>Tabla con todos los reportes, filtros, acciones rápidas</small>
+        </div>
+        
+        <h2>12.6 Dashboard Administrador</h2>
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA MOCKUP DE DASHBOARD ADMIN]</strong>
+            <small>Estadísticas completas, gráficos, métricas globales</small>
+        </div>
+        
+        <h2>12.7 Registro</h2>
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA MOCKUP DE REGISTRO]</strong>
+        </div>
+        
+        <h2>12.8 Estadísticas</h2>
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA MOCKUP DE ESTADÍSTICAS]</strong>
+        </div>
+        
+        <h2>12.9 Notificaciones</h2>
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA MOCKUP DE NOTIFICACIONES]</strong>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 13: ARQUITECTURA MVC -->
+    <div class="seccion">
+        <h1>13. ARQUITECTURA MVC</h1>
+        
+        <h2>13.1 Introducción</h2>
+        <p>El patrón <strong>Modelo-Vista-Controlador (MVC)</strong> separa la lógica de negocio en tres componentes: Modelo (datos y lógica de negocio), Vista (presentación) y Controlador (flujo de la aplicación). Este patrón facilita el mantenimiento, testing y escalabilidad del código.</p>
+        
+        <h2>13.2 Implementación en Laravel</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Componente</th>
+                    <th>Ubicación</th>
+                    <th>Responsabilidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Modelo</td>
+                    <td>app/Models/</td>
+                    <td>Acceso a datos, lógica de negocio</td>
+                </tr>
+                <tr>
+                    <td>Vista</td>
+                    <td>resources/views/</td>
+                    <td>Presentación (Blade templates)</td>
+                </tr>
+                <tr>
+                    <td>Controlador</td>
+                    <td>app/Http/Controllers/</td>
+                    <td>Flujo de la aplicación</td>
+                </tr>
+                <tr>
+                    <td>Rutas</td>
+                    <td>routes/web.php</td>
+                    <td>Mapeo de URLs a controladores</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>13.3 Flujo del Sistema</h2>
+        <ol>
+            <li>Usuario hace petición HTTP</li>
+            <li>Router dirige al Controlador (routes/web.php)</li>
+            <li>Controlador solicita datos al Modelo</li>
+            <li>Modelo consulta Base de Datos (Eloquent ORM)</li>
+            <li>Modelo retorna datos al Controlador</li>
+            <li>Controlador pasa datos a la Vista</li>
+            <li>Vista se renderiza en el navegador (Blade → HTML)</li>
+        </ol>
+        
+        <div class="imagen-placeholder">
+            <strong>[ESPACIO PARA DIAGRAMA DE FLUJO MVC]</strong>
+            <small>Flujo: Usuario → Navegador → Router → Middleware → Controlador → Modelo → BD → Vista → Navegador</small>
+        </div>
+        
+        <h2>13.4 Ejemplo: Creación de Ticket</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Archivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Ruta</td>
+                    <td>routes/web.php</td>
+                </tr>
+                <tr>
+                    <td>Form Request</td>
+                    <td>app/Http/Requests/StoreReporteRequest.php</td>
+                </tr>
+                <tr>
+                    <td>Controlador</td>
+                    <td>app/Http/Controllers/ReporteController.php</td>
+                </tr>
+                <tr>
+                    <td>Modelo</td>
+                    <td>app/Models/Ticket.php</td>
+                </tr>
+                <tr>
+                    <td>Vista</td>
+                    <td>resources/views/reportes/create.blade.php</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SECCIÓN 14: CONCLUSIÓN -->
+    <div class="seccion">
+        <h1>14. CONCLUSIÓN</h1>
+        
+        <h2>Resumen del Proyecto</h2>
+        <p>El Sistema de Reporte de Problemas de Infraestructura es una solución completa desarrollada en Laravel 12 que digitaliza el proceso de comunicación entre la comunidad del ITSC y el departamento de mantenimiento. El sistema cumple con todos los requisitos de la asignatura SOF-111.</p>
+        
+        <h2>Objetivos Cumplidos</h2>
+        <p><span class="badge badge-success">✓</span> Autenticación completa</p>
+        <p><span class="badge badge-success">✓</span> Gestión de reportes</p>
+        <p><span class="badge badge-success">✓</span> Listado con filtros</p>
+        <p><span class="badge badge-success">✓</span> Cambio de estados</p>
+        <p><span class="badge badge-success">✓</span> Historial</p>
+        <p><span class="badge badge-success">✓</span> Control de roles</p>
+        <p><span class="badge badge-success">✓</span> Notificaciones</p>
+        <p><span class="badge badge-success">✓</span> Arquitectura MVC</p>
+        <p><span class="badge badge-success">✓</span> Documentación SRS (15 secciones)</p>
+        
+        <h2>Tecnologías</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Capa</th>
+                    <th>Tecnología</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Backend</td>
+                    <td>PHP 8.2+, Laravel 12.x</td>
+                </tr>
+                <tr>
+                    <td>Base de Datos</td>
+                    <td>MySQL 8.0+</td>
+                </tr>
+                <tr>
+                    <td>Frontend</td>
+                    <td>Tailwind CSS, Blade</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>Aprendizajes</h2>
+        <ol>
+            <li>Desarrollo profesional con Laravel</li>
+            <li>Aplicación práctica del patrón MVC</li>
+            <li>Seguridad web (bcrypt, CSRF, validaciones)</li>
+            <li>Diseño de bases de datos relacionales</li>
+            <li>Documentación técnica SRS</li>
+        </ol>
+        
+        <h2>Trabajo Futuro (SOF-113)</h2>
+        <ul>
+            <li>Mantenimiento preventivo programado</li>
+            <li>Notificaciones por email</li>
+            <li>Exportación PDF/Excel</li>
+            <li>Sistema de calificación</li>
+            <li>Dashboard avanzado con Chart.js</li>
+            <li>API REST</li>
+            <li>App móvil</li>
+        </ul>
+        
+        <h2>Recomendaciones</h2>
+        <ol>
+            <li>Implementar pruebas automatizadas (PHPUnit)</li>
+            <li>Despliegue en producción con HTTPS</li>
+            <li>Pruebas de usabilidad</li>
+            <li>Documentar API con Swagger</li>
+            <li>Monitoreo y logging centralizado</li>
+            <li>Backup automático de BD</li>
+            <li>Material de capacitación para usuarios</li>
+        </ol>
+    </div>
+
+    <!-- SECCIÓN 15: ANEXOS -->
+    <div class="seccion">
+        <h1>15. ANEXOS</h1>
+        
+        <h2>15.1 Script SQL</h2>
+        <pre>-- Creación de la base de datos
+CREATE DATABASE IF NOT EXISTS sistema_reportes 
+CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE sistema_reportes;
+
+-- Tabla: roles
+CREATE TABLE roles (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE,
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL
+) ENGINE=InnoDB;
+
+-- Tabla: users
+CREATE TABLE users (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role_id BIGINT UNSIGNED NOT NULL DEFAULT 3,
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL,
+    FOREIGN KEY (role_id) REFERENCES roles(id)
+) ENGINE=InnoDB;
+
+-- Tabla: tickets
+CREATE TABLE tickets (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT UNSIGNED NOT NULL,
+    location VARCHAR(150) NOT NULL,
+    description TEXT NOT NULL,
+    priority ENUM('baja','media','alta') DEFAULT 'media',
+    status ENUM('pendiente','en_proceso','resuelto') DEFAULT 'pendiente',
+    photo_path VARCHAR(255) NULL,
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Datos iniciales
+INSERT INTO roles (name) VALUES ('admin'), ('mantenimiento'), ('usuario');</pre>
+        
+        <h2>15.2 Manual de Usuario</h2>
+        <h3>Para Estudiantes/Profesores:</h3>
+        <ol>
+            <li><strong>Registrarse:</strong> Ir a "Registrarse", completar formulario</li>
+            <li><strong>Crear Reporte:</strong> Dashboard → "Crear Nuevo Reporte" → completar campos → Guardar</li>
+            <li><strong>Consultar Estado:</strong> Dashboard → "Reportes" → ver listado</li>
+        </ol>
+        
+        <h3>Para Mantenimiento:</h3>
+        <ol>
+            <li><strong>Ver Reportes:</strong> Ir a "Reportes"</li>
+            <li><strong>Cambiar Estado:</strong> Click en reporte → "Editar" → seleccionar estado → Guardar</li>
+        </ol>
+        
+        <h2>15.3 Referencias</h2>
+        <ol>
+            <li>Laravel 12 Documentation - https://laravel.com/docs/12.x</li>
+            <li>Head First Design Patterns - Freeman & Freeman</li>
+            <li>Design Patterns - Gamma, Helm, Johnson, Vlissides</li>
+            <li>IEEE Std 829-2008 - Documentación de Software</li>
+            <li>Ingeniería de Software - Pressman</li>
+            <li>PHP 8.2 Documentation - https://www.php.net</li>
+            <li>MySQL 8.0 Reference - https://dev.mysql.com/doc/</li>
+        </ol>
+        
+        <h2>15.4 Glosario</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Término</th>
+                    <th>Definición</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>API</td>
+                    <td>Interfaz de Programación de Aplicaciones</td>
+                </tr>
+                <tr>
+                    <td>bcrypt</td>
+                    <td>Algoritmo de hash para contraseñas</td>
+                </tr>
+                <tr>
+                    <td>CRUD</td>
+                    <td>Crear, Leer, Actualizar, Eliminar</td>
+                </tr>
+                <tr>
+                    <td>Eloquent</td>
+                    <td>ORM de Laravel</td>
+                </tr>
+                <tr>
+                    <td>MVC</td>
+                    <td>Modelo-Vista-Controlador</td>
+                </tr>
+                <tr>
+                    <td>ORM</td>
+                    <td>Mapeo Objeto-Relacional</td>
+                </tr>
+                <tr>
+                    <td>SRS</td>
+                    <td>Software Requirements Specification</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="documento-footer">
+        <h2>SISTEMA DE REPORTE DE PROBLEMAS DE INFRAESTRUCTURA</h2>
+        <p>ITSC - SOF-111 Construcción de Software</p>
+        <p>Cuatrimestre 2026-1</p>
+        <p style="margin-top: 20px;">31 de marzo de 2026</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700">
+  <defs>
+    <linearGradient id="gradSystem" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Fondo -->
+  <rect width="900" height="700" fill="#f8fafc"/>
+  
+  <!-- Título -->
+  <text x="450" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e40af">DIAGRAMA DE CONTEXTO</text>
+  
+  <!-- Sistema Central -->
+  <rect x="350" y="300" width="200" height="100" rx="15" fill="url(#gradSystem)" stroke="#1e40af" stroke-width="3"/>
+  <text x="450" y="335" text-anchor="middle" font-size="13" font-weight="bold" fill="white">SISTEMA DE REPORTES</text>
+  <text x="450" y="355" text-anchor="middle" font-size="13" font-weight="bold" fill="white">INFRAESTRUCTURA</text>
+  <text x="450" y="375" text-anchor="middle" font-size="11" fill="white">ITSC</text>
+  
+  <!-- Actor: Estudiante -->
+  <rect x="50" y="80" width="140" height="80" rx="10" fill="#10b981" stroke="#059669" stroke-width="2"/>
+  <text x="120" y="110" text-anchor="middle" font-size="28" fill="white">👨‍🎓</text>
+  <text x="120" y="135" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Estudiante</text>
+  <text x="120" y="150" text-anchor="middle" font-size="10" fill="white">/Profesor</text>
+  
+  <!-- Actor: Mantenimiento -->
+  <rect x="710" y="80" width="140" height="80" rx="10" fill="#f59e0b" stroke="#d97706" stroke-width="2"/>
+  <text x="780" y="110" text-anchor="middle" font-size="28" fill="white">🔧</text>
+  <text x="780" y="135" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Mantenimiento</text>
+  
+  <!-- Actor: Admin -->
+  <rect x="380" y="550" width="140" height="80" rx="10" fill="#ef4444" stroke="#dc2626" stroke-width="2"/>
+  <text x="450" y="580" text-anchor="middle" font-size="28" fill="white">👤</text>
+  <text x="450" y="605" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Administrador</text>
+  
+  <!-- Base de Datos -->
+  <ellipse cx="150" cy="450" rx="60" ry="40" fill="#8b5cf6" stroke="#7c3aed" stroke-width="2"/>
+  <rect x="90" y="450" width="120" height="60" fill="#8b5cf6" stroke="#7c3aed" stroke-width="2"/>
+  <ellipse cx="150" cy="450" rx="60" ry="40" fill="#a78bfa" stroke="#7c3aed" stroke-width="2"/>
+  <text x="150" y="495" text-anchor="middle" font-size="11" font-weight="bold" fill="white">MySQL</text>
+  <text x="150" y="510" text-anchor="middle" font-size="10" fill="white">Base de Datos</text>
+  
+  <!-- Archivos -->
+  <rect x="660" y="420" width="120" height="100" rx="5" fill="#6b7280" stroke="#4b5563" stroke-width="2"/>
+  <path d="M660 440 L780 440" stroke="#4b5563" stroke-width="2"/>
+  <text x="720" y="470" text-anchor="middle" font-size="10" font-weight="bold" fill="white">📁 Archivos</text>
+  <text x="720" y="490" text-anchor="middle" font-size="10" fill="white">Fotos Reportes</text>
+  
+  <!-- Flechas de conexión -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/>
+    </marker>
+  </defs>
+  
+  <!-- Conexiones bidireccionales -->
+  <path d="M190 140 L350 310" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M350 320 L200 160" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <path d="M710 140 L550 310" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M550 320 L700 160" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <path d="M450 400 L450 550" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M450 550 L450 420" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Conexión a BD -->
+  <path d="M350 350 L210 450" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow)"/>
+  
+  <!-- Conexión a Archivos -->
+  <path d="M550 350 L670 450" stroke="#6b7280" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow)"/>
+  
+  <!-- Etiquetas de flujo -->
+  <text x="250" y="220" font-size="10" fill="#374151" font-style="italic">Reporta incidencias</text>
+  <text x="600" y="220" font-size="10" fill="#374151" font-style="italic">Gestiona reportes</text>
+  <text x="460" y="480" font-size="10" fill="#374151" font-style="italic">Administra</text>
+  
+  <!-- Leyenda -->
+  <rect x="20" y="620" width="200" height="70" rx="5" fill="white" stroke="#e5e7eb"/>
+  <text x="120" y="640" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f2937">LEYENDA</text>
+  <rect x="30" y="650" width="20" height="15" fill="#3b82f6"/><text x="55" y="662" font-size="10" fill="#374151">Flujo de datos</text>
+  <line x1="30" y1="675" x2="50" y2="675" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,5"/><text x="55" y="679" font-size="10" fill="#374151">BD/Archivos</text>
+</svg>

@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 650">
+  <!-- Fondo -->
+  <rect width="900" height="650" fill="#f8fafc"/>
+  
+  <!-- Título -->
+  <text x="450" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e40af">DIAGRAMA ENTIDAD-RELACIÓN (DER)</text>
+  
+  <!-- Tabla roles -->
+  <rect x="50" y="80" width="180" height="130" fill="white" stroke="#10b981" stroke-width="2"/>
+  <rect x="50" y="80" width="180" height="30" fill="#10b981"/>
+  <text x="140" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="white">roles</text>
+  <line x1="50" y1="110" x2="230" y2="110" stroke="#10b981"/>
+  <text x="60" y="130" font-size="10" fill="#374151">🔑 id (PK)</text>
+  <text x="60" y="145" font-size="10" fill="#374151">name</text>
+  <text x="60" y="160" font-size="10" fill="#374151">created_at</text>
+  <text x="60" y="175" font-size="10" fill="#374151">updated_at</text>
+  <text x="190" y="130" font-size="9" fill="#6b7280">BIGINT</text>
+  <text x="190" y="145" font-size="9" fill="#6b7280">VARCHAR</text>
+  <text x="175" y="160" font-size="9" fill="#6b7280">TIMESTAMP</text>
+  <text x="175" y="175" font-size="9" fill="#6b7280">TIMESTAMP</text>
+  
+  <!-- Tabla users -->
+  <rect x="320" y="80" width="200" height="180" fill="white" stroke="#3b82f6" stroke-width="2"/>
+  <rect x="320" y="80" width="200" height="30" fill="#3b82f6"/>
+  <text x="420" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="white">users</text>
+  <line x1="320" y1="110" x2="520" y2="110" stroke="#3b82f6"/>
+  <text x="330" y="130" font-size="10" fill="#374151">🔑 id (PK)</text>
+  <text x="330" y="145" font-size="10" fill="#374151">name</text>
+  <text x="330" y="160" font-size="10" fill="#374151">email (UNIQUE)</text>
+  <text x="330" y="175" font-size="10" fill="#374151">password</text>
+  <text x="330" y="190" font-size="10" fill="#374151">🔗 role_id (FK)</text>
+  <text x="330" y="205" font-size="10" fill="#374151">remember_token</text>
+  <text x="330" y="220" font-size="10" fill="#374151">timestamps</text>
+  <text x="480" y="130" font-size="9" fill="#6b7280">BIGINT</text>
+  <text x="480" y="145" font-size="9" fill="#6b7280">VARCHAR</text>
+  <text x="480" y="160" font-size="9" fill="#6b7280">VARCHAR</text>
+  <text x="480" y="175" font-size="9" fill="#6b7280">VARCHAR</text>
+  <text x="480" y="190" font-size="9" fill="#6b7280">BIGINT</text>
+  <text x="480" y="205" font-size="9" fill="#6b7280">VARCHAR</text>
+  <text x="465" y="220" font-size="9" fill="#6b7280">TIMESTAMP</text>
+  
+  <!-- Tabla tickets -->
+  <rect x="600" y="80" width="220" height="200" fill="white" stroke="#f59e0b" stroke-width="2"/>
+  <rect x="600" y="80" width="220" height="30" fill="#f59e0b"/>
+  <text x="710" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="white">tickets</text>
+  <line x1="600" y1="110" x2="820" y2="110" stroke="#f59e0b"/>
+  <text x="610" y="130" font-size="10" fill="#374151">🔑 id (PK)</text>
+  <text x="610" y="145" font-size="10" fill="#374151">🔗 user_id (FK)</text>
+  <text x="610" y="160" font-size="10" fill="#374151">location</text>
+  <text x="610" y="175" font-size="10" fill="#374151">description</text>
+  <text x="610" y="190" font-size="10" fill="#374151">priority (ENUM)</text>
+  <text x="610" y="205" font-size="10" fill="#374151">status (ENUM)</text>
+  <text x="610" y="220" font-size="10" fill="#374151">photo_path</text>
+  <text x="610" y="235" font-size="10" fill="#374151">timestamps</text>
+  <text x="780" y="130" font-size="9" fill="#6b7280">BIGINT</text>
+  <text x="780" y="145" font-size="9" fill="#6b7280">BIGINT</text>
+  <text x="780" y="160" font-size="9" fill="#6b7280">VARCHAR</text>
+  <text x="780" y="175" font-size="9" fill="#6b7280">TEXT</text>
+  <text x="780" y="190" font-size="9" fill="#6b7280">ENUM</text>
+  <text x="780" y="205" font-size="9" fill="#6b7280">ENUM</text>
+  <text x="770" y="220" font-size="9" fill="#6b7280">VARCHAR</text>
+  <text x="755" y="235" font-size="9" fill="#6b7280">TIMESTAMP</text>
+  
+  <!-- Tabla notifications -->
+  <rect x="320" y="350" width="240" height="170" fill="white" stroke="#8b5cf6" stroke-width="2"/>
+  <rect x="320" y="350" width="240" height="30" fill="#8b5cf6"/>
+  <text x="440" y="370" text-anchor="middle" font-size="12" font-weight="bold" fill="white">notifications</text>
+  <line x1="320" y1="380" x2="560" y2="380" stroke="#8b5cf6"/>
+  <text x="330" y="400" font-size="10" fill="#374151">🔑 id (PK)</text>
+  <text x="330" y="415" font-size="10" fill="#374151">notifiable_type</text>
+  <text x="330" y="430" font-size="10" fill="#374151">notifiable_id</text>
+  <text x="330" y="445" font-size="10" fill="#374151">type</text>
+  <text x="330" y="460" font-size="10" fill="#374151">data (JSON)</text>
+  <text x="330" y="475" font-size="10" fill="#374151">read_at</text>
+  <text x="330" y="490" font-size="10" fill="#374151">timestamps</text>
+  <text x="520" y="400" font-size="9" fill="#6b7280">UUID</text>
+  <text x="520" y="415" font-size="9" fill="#6b7280">VARCHAR</text>
+  <text x="520" y="430" font-size="9" fill="#6b7280">BIGINT</text>
+  <text x="520" y="445" font-size="9" fill="#6b7280">VARCHAR</text>
+  <text x="520" y="460" font-size="9" fill="#6b7280">JSON</text>
+  <text x="505" y="475" font-size="9" fill="#6b7280">TIMESTAMP</text>
+  
+  <!-- Relaciones -->
+  <!-- roles -> users (1:N) -->
+  <line x1="230" y1="95" x2="320" y2="95" stroke="#374151" stroke-width="2"/>
+  <text x="250" y="85" font-size="10" fill="#6b7280" font-weight="bold">1</text>
+  <text x="305" y="85" font-size="10" fill="#6b7280" font-weight="bold">N</text>
+  <text x="260" y="105" font-size="9" fill="#6b7280" font-style="italic">pertenece a</text>
+  
+  <!-- users -> tickets (1:N) -->
+  <line x1="520" y1="175" x2="600" y2="175" stroke="#374151" stroke-width="2"/>
+  <text x="540" y="165" font-size="10" fill="#6b7280" font-weight="bold">1</text>
+  <text x="585" y="165" font-size="10" fill="#6b7280" font-weight="bold">N</text>
+  <text x="545" y="190" font-size="9" fill="#6b7280" font-style="italic">tiene muchos</text>
+  
+  <!-- users -> notifications (1:N polimórfica) -->
+  <path d="M420 260 L420 300 L440 300 L440 350" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="445" y="320" font-size="9" fill="#6b7280" font-style="italic">polimórfica</text>
+  
+  <!-- Leyenda -->
+  <rect x="50" y="350" width="200" height="140" rx="5" fill="white" stroke="#e5e7eb"/>
+  <text x="150" y="370" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f2937">LEYENDA</text>
+  <text x="65" y="390" font-size="10" fill="#374151">🔑 Primary Key (PK)</text>
+  <text x="65" y="410" font-size="10" fill="#374151">🔗 Foreign Key (FK)</text>
+  <line x1="60" y1="425" x2="100" y2="425" stroke="#374151" stroke-width="2"/>
+  <text x="110" y="430" font-size="9" fill="#6b7280">Relación 1:N</text>
+  <line x1="60" y1="445" x2="100" y2="445" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="110" y="450" font-size="9" fill="#6b7280">Polimórfica</text>
+  <text x="65" y="470" font-size="9" fill="#6b7280" font-style="italic">cursiva = descripción</text>
+  
+  <!-- Notas -->
+  <rect x="600" y="350" width="220" height="140" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+  <text x="710" y="370" text-anchor="middle" font-size="10" font-weight="bold" fill="#92400e">NOTAS</text>
+  <text x="610" y="390" font-size="9" fill="#374151">• ON DELETE CASCADE en</text>
+  <text x="620" y="405" font-size="9" fill="#374151">users → tickets</text>
+  <text x="610" y="425" font-size="9" fill="#374151">• ENUM status: pendiente,</text>
+  <text x="620" y="440" font-size="9" fill="#374151">en_proceso, resuelto</text>
+  <text x="610" y="460" font-size="9" fill="#374151">• ENUM priority: baja,</text>
+  <text x="620" y="475" font-size="9" fill="#374151">media, alta</text>
+  <text x="610" y="490" font-size="9" fill="#374151">• notifiable es polimórfico</text>
+</svg>

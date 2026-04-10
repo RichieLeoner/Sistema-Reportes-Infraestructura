@@ -1,0 +1,122 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    CÓMO GENERAR EL PDF - INSTRUCCIONES RÁPIDAS
+                    SISTEMA DE REPORTE DE INFRAESTRUCTURA - SOF-111
+═══════════════════════════════════════════════════════════════════════════════
+
+OPCIÓN RECOMENDADA (La más fácil - 2 minutos):
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Abre el archivo: SRS_PARA_PDF.html
+   (Doble clic o click derecho → Abrir con → Google Chrome / Edge)
+
+2. Presiona: Ctrl + P (o Archivo → Imprimir)
+
+3. Configura:
+   ✓ Destino: "Guardar como PDF"
+   ✓ Tamaño: "Carta" o "A4"
+   ✓ Márgenes: "Predeterminados"
+   ✓ ✓ GRÁFICOS DE FONDO (IMPORTANTE para colores)
+
+4. Click en "Guardar" → Elige ubicación → Listo!
+
+
+═══════════════════════════════════════════════════════════════════════════════
+OTRAS OPCIONES:
+═══════════════════════════════════════════════════════════════════════════════
+
+OPCIÓN B - Desde el HTML normal:
+1. Abre: SRS_DOCUMENTACION.html
+2. Ctrl + P
+3. Configura igual que arriba
+4. Guarda como PDF
+
+
+OPCIÓN C - Usando Word:
+1. Abre Microsoft Word
+2. Archivo → Abrir → Selecciona SRS_COMPLETO.md
+3. Ajusta formato (fuente Arial 12, interlineado 1.5)
+4. Inserta logo del ITSC en portada
+5. Agrega numeración de páginas
+6. Archivo → Guardar como → PDF
+
+
+OPCIÓN D - Usando VS Code:
+1. Instala extensión: "Markdown PDF"
+2. Abre SRS_COMPLETO.md en VS Code
+3. F1 → "Markdown PDF: Export (pdf)"
+4. Listo!
+
+
+═══════════════════════════════════════════════════════════════════════════════
+VERIFICACIÓN FINAL:
+═══════════════════════════════════════════════════════════════════════════════
+
+Antes de entregar, verifica que el PDF tenga:
+
+[ ] Las 15 secciones completas
+[ ] Logo del ITSC en la portada
+[ ] Datos del estudiante completos
+[ ] Numeración de páginas
+[ ] Tablas legibles
+[ ] Formato consistente
+[ ] Tamaño < 10 MB
+
+
+═══════════════════════════════════════════════════════════════════════════════
+FORMATO REQUERIDO:
+═══════════════════════════════════════════════════════════════════════════════
+
+✓ Fuente: Arial o Times New Roman, 12pt
+✓ Títulos: Negrita, 14-16pt
+✓ Interlineado: 1.5 líneas
+✓ Márgenes: 2.54 cm (1 pulgada)
+✓ Justificación: Completa
+✓ Numeración: Pie de página, centrado
+
+
+═══════════════════════════════════════════════════════════════════════════════
+CARPETA DE ENTREGA SUGERIDA:
+═══════════════════════════════════════════════════════════════════════════════
+
+ENTREGA_SOF111_2026-1/
+├── DOCUMENTACION/
+│   ├── SRS_DOCUMENTACION.pdf    ← Documento principal
+│   └── (otros archivos opcionales)
+├── CODIGO/
+│   └── (todo el proyecto Laravel)
+├── BASE_DE_DATOS/
+│   └── script_sql.sql
+└── README_ENTREGA.txt
+
+
+═══════════════════════════════════════════════════════════════════════════════
+SOLUCIÓN DE PROBLEMAS:
+═══════════════════════════════════════════════════════════════════════════════
+
+PROBLEMA: El PDF sale sin colores
+SOLUCIÓN: Activa "Gráficos de fondo" en configuración de impresión
+
+PROBLEMA: Las tablas se cortan
+SOLUCIÓN: En Word: Tabla → Propiedades → Fila → Desmarca "Dividir filas"
+
+PROBLEMA: Archivo muy grande
+SOLUCIÓN: Comprime en https://www.ilovepdf.com/compress_pdf
+
+PROBLEMA: No aparece numeración
+SOLUCIÓN: Insertar → Número de página → Pie de página → Centrado
+
+
+═══════════════════════════════════════════════════════════════════════════════
+ARCHIVOS EN ESTA CARPETA:
+═══════════════════════════════════════════════════════════════════════════════
+
+SRS_PARA_PDF.html         → Optimizado para impresión (USA ESTE)
+SRS_DOCUMENTACION.html    → Versión web con navegación lateral
+SRS_COMPLETO.md           → Versión Markdown completa
+GENERAR_PDF.md            → Instrucciones detalladas
+README.md                 → Guía de la carpeta
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                            ¡LISTO PARA ENTREGAR!
+═══════════════════════════════════════════════════════════════════════════════

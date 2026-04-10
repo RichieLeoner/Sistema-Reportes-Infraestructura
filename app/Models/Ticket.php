@@ -6,6 +6,7 @@ use App\TicketPriority;
 use App\TicketStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Ticket extends Model
 {
@@ -24,25 +25,14 @@ class Ticket extends Model
     ];
 
     /**
-     * Obtener o establecer la prioridad como Enum
+     * Los casts de atributos
      */
-    protected function priority(): \Illuminate\Database\Eloquent\Casts\Attribute
+    protected function casts(): array
     {
-        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
-            get: fn ($value) => TicketPriority::from($value),
-            set: fn (TicketPriority $value) => $value->value,
-        );
-    }
-
-    /**
-     * Obtener o establecer el estado como Enum
-     */
-    protected function status(): \Illuminate\Database\Eloquent\Casts\Attribute
-    {
-        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
-            get: fn ($value) => TicketStatus::from($value),
-            set: fn (TicketStatus $value) => $value->value,
-        );
+        return [
+            'priority' => TicketPriority::class,
+            'status' => TicketStatus::class,
+        ];
     }
 
     /**

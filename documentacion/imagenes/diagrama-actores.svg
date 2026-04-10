@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Fondo -->
+  <rect width="800" height="600" fill="#f8fafc"/>
+  
+  <!-- Título -->
+  <text x="400" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e40af">DIAGRAMA DE ACTORES</text>
+  
+  <!-- Sistema Central -->
+  <rect x="300" y="250" width="200" height="100" rx="10" fill="url(#grad1)" stroke="#1e40af" stroke-width="2"/>
+  <text x="400" y="285" text-anchor="middle" font-size="14" font-weight="bold" fill="white">SISTEMA DE</text>
+  <text x="400" y="305" text-anchor="middle" font-size="14" font-weight="bold" fill="white">REPORTES</text>
+  <text x="400" y="325" text-anchor="middle" font-size="12" fill="white">ITSC</text>
+  
+  <!-- Actor 1: Estudiante -->
+  <circle cx="150" cy="150" r="40" fill="#10b981" stroke="#059669" stroke-width="2"/>
+  <text x="150" y="145" text-anchor="middle" font-size="24" fill="white">👨‍🎓</text>
+  <text x="150" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#059669">Estudiante/Profesor</text>
+  <rect x="100" y="210" width="100" height="60" rx="5" fill="#ecfdf5" stroke="#10b981"/>
+  <text x="150" y="228" text-anchor="middle" font-size="10" fill="#059669">• Crear reportes</text>
+  <text x="150" y="245" text-anchor="middle" font-size="10" fill="#059669">• Ver historial</text>
+  
+  <!-- Actor 2: Mantenimiento -->
+  <circle cx="650" cy="150" r="40" fill="#f59e0b" stroke="#d97706" stroke-width="2"/>
+  <text x="650" y="145" text-anchor="middle" font-size="24" fill="white">🔧</text>
+  <text x="650" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">Mantenimiento</text>
+  <rect x="600" y="210" width="100" height="60" rx="5" fill="#fffbeb" stroke="#f59e0b"/>
+  <text x="650" y="228" text-anchor="middle" font-size="10" fill="#d97706">• Gestionar</text>
+  <text x="650" y="245" text-anchor="middle" font-size="10" fill="#d97706">• Cambiar estados</text>
+  
+  <!-- Actor 3: Administrador -->
+  <circle cx="400" cy="500" r="40" fill="#ef4444" stroke="#dc2626" stroke-width="2"/>
+  <text x="400" y="495" text-anchor="middle" font-size="24" fill="white">👤</text>
+  <text x="400" y="550" text-anchor="middle" font-size="12" font-weight="bold" fill="#dc2626">Administrador</text>
+  <rect x="350" y="560" width="100" height="35" rx="5" fill="#fef2f2" stroke="#ef4444"/>
+  <text x="400" y="580" text-anchor="middle" font-size="10" fill="#dc2626">• Acceso total</text>
+  
+  <!-- Flechas de conexión -->
+  <path d="M200 170 L300 260" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+  <path d="M600 170 L500 260" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+  <path d="M400 460 L400 350" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+  
+  <!-- Definición de marcador de flecha -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/>
+    </marker>
+  </defs>
+  
+  <!-- Leyenda -->
+  <rect x="20" y="520" width="150" height="70" rx="5" fill="white" stroke="#e5e7eb"/>
+  <text x="95" y="540" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f2937">LEYENDA</text>
+  <circle cx="40" y="560" r="8" fill="#10b981"/><text x="55" y="564" font-size="10" fill="#374151">Usuario</text>
+  <circle cx="40" y="580" r="8" fill="#f59e0b"/><text x="55" y="584" font-size="10" fill="#374151">Manten.</text>
+</svg>

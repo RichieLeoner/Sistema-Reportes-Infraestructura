@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 750">
+  <!-- Fondo -->
+  <rect width="1000" height="750" fill="#f8fafc"/>
+  
+  <!-- Título -->
+  <text x="500" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e40af">DIAGRAMA DE CLASES</text>
+  
+  <!-- Clase User -->
+  <rect x="50" y="70" width="220" height="180" fill="white" stroke="#3b82f6" stroke-width="2"/>
+  <rect x="50" y="70" width="220" height="35" fill="#3b82f6"/>
+  <text x="160" y="93" text-anchor="middle" font-size="13" font-weight="bold" fill="white">User</text>
+  <text x="65" y="125" font-size="10" fill="#1e40af">+ id: int</text>
+  <text x="65" y="140" font-size="10" fill="#1e40af">+ name: string</text>
+  <text x="65" y="155" font-size="10" fill="#1e40af">+ email: string</text>
+  <text x="65" y="170" font-size="10" fill="#1e40af">+ password: string</text>
+  <text x="65" y="185" font-size="10" fill="#1e40af">+ role_id: int</text>
+  <line x1="50" y1="195" x2="270" y2="195" stroke="#3b82f6"/>
+  <text x="65" y="210" font-size="10" fill="#059669">+ isAdmin(): bool</text>
+  <text x="65" y="225" font-size="10" fill="#059669">+ isMaintenance(): bool</text>
+  <text x="65" y="240" font-size="10" fill="#059669">+ tickets(): HasMany</text>
+  
+  <!-- Clase Role -->
+  <rect x="50" y="300" width="220" height="120" fill="white" stroke="#10b981" stroke-width="2"/>
+  <rect x="50" y="300" width="220" height="35" fill="#10b981"/>
+  <text x="160" y="323" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Role</text>
+  <text x="65" y="355" font-size="10" fill="#1e40af">+ id: int</text>
+  <text x="65" y="370" font-size="10" fill="#1e40af">+ name: string</text>
+  <line x1="50" y1="380" x2="270" y2="380" stroke="#10b981"/>
+  <text x="65" y="395" font-size="10" fill="#059669">+ users(): HasMany</text>
+  
+  <!-- Clase Ticket -->
+  <rect x="380" y="70" width="240" height="220" fill="white" stroke="#f59e0b" stroke-width="2"/>
+  <rect x="380" y="70" width="240" height="35" fill="#f59e0b"/>
+  <text x="500" y="93" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Ticket</text>
+  <text x="395" y="125" font-size="10" fill="#1e40af">+ id: int</text>
+  <text x="395" y="140" font-size="10" fill="#1e40af">+ user_id: int</text>
+  <text x="395" y="155" font-size="10" fill="#1e40af">+ location: string</text>
+  <text x="395" y="170" font-size="10" fill="#1e40af">+ description: text</text>
+  <text x="395" y="185" font-size="10" fill="#1e40af">+ priority: enum</text>
+  <text x="395" y="200" font-size="10" fill="#1e40af">+ status: enum</text>
+  <text x="395" y="215" font-size="10" fill="#1e40af">+ photo_path: string</text>
+  <line x1="380" y1="225" x2="620" y2="225" stroke="#f59e0b"/>
+  <text x="395" y="240" font-size="10" fill="#059669">+ user(): BelongsTo</text>
+  <text x="395" y="255" font-size="10" fill="#059669">+ isPending(): bool</text>
+  <text x="395" y="270" font-size="10" fill="#059669">+ isResolved(): bool</text>
+  
+  <!-- Clase Notification -->
+  <rect x="380" y="350" width="240" height="150" fill="white" stroke="#8b5cf6" stroke-width="2"/>
+  <rect x="380" y="350" width="240" height="35" fill="#8b5cf6"/>
+  <text x="500" y="373" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Notification</text>
+  <text x="395" y="405" font-size="10" fill="#1e40af">+ id: uuid</text>
+  <text x="395" y="420" font-size="10" fill="#1e40af">+ notifiable_type</text>
+  <text x="395" y="435" font-size="10" fill="#1e40af">+ data: json</text>
+  <text x="395" y="450" font-size="10" fill="#1e40af">+ read_at: timestamp</text>
+  <line x1="380" y1="460" x2="620" y2="460" stroke="#8b5cf6"/>
+  <text x="395" y="475" font-size="10" fill="#059669">+ markAsRead()</text>
+  
+  <!-- Controladores -->
+  <rect x="700" y="70" width="260" height="140" fill="#eff6ff" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="830" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e40af">CONTROLADORES</text>
+  <text x="715" y="120" font-size="10" fill="#374151">• AuthController</text>
+  <text x="715" y="135" font-size="10" fill="#374151">• DashboardController</text>
+  <text x="715" y="150" font-size="10" fill="#374151">• ReporteController</text>
+  <text x="715" y="165" font-size="10" fill="#374151">• NotificationController</text>
+  
+  <!-- Enums -->
+  <rect x="700" y="250" width="260" height="100" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="830" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#92400e">ENUMS</text>
+  <text x="715" y="300" font-size="10" fill="#374151">TicketStatus:</text>
+  <text x="725" y="315" font-size="9" fill="#6b7280">pendiente, en_proceso, resuelto</text>
+  <text x="715" y="330" font-size="10" fill="#374151">TicketPriority:</text>
+  <text x="725" y="345" font-size="9" fill="#6b7280">baja, media, alta</text>
+  
+  <!-- Relaciones -->
+  <!-- User -> Role (Muchos a 1) -->
+  <line x1="160" y1="250" x2="160" y2="300" stroke="#374151" stroke-width="1.5"/>
+  <text x="165" y="280" font-size="9" fill="#6b7280">belongsTo</text>
+  <text x="175" y="295" font-size="8" fill="#6b7280">1</text>
+  <text x="175" y="255" font-size="8" fill="#6b7280">N</text>
+  
+  <!-- User -> Ticket (1 a Muchos) -->
+  <line x1="270" y1="160" x2="380" y2="160" stroke="#374151" stroke-width="1.5"/>
+  <text x="310" y="155" font-size="9" fill="#6b7280">hasMany</text>
+  <text x="285" y="150" font-size="8" fill="#6b7280">1</text>
+  <text x="365" y="150" font-size="8" fill="#6b7280">N</text>
+  
+  <!-- Ticket -> Notification -->
+  <path d="M500 290 L500 350" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="5,5"/>
+  <text x="510" y="325" font-size="9" fill="#6b7280">polimórfica</text>
+  
+  <!-- Leyenda -->
+  <rect x="50" y="480" width="280" height="120" rx="5" fill="white" stroke="#e5e7eb"/>
+  <text x="190" y="500" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f2937">LEYENDA</text>
+  <rect x="65" y="510" width="20" height="15" fill="white" stroke="#3b82f6" stroke-width="2"/><text x="90" y="522" font-size="9" fill="#374151">Modelo</text>
+  <rect x="65" y="530" width="20" height="15" fill="#eff6ff" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5"/><text x="90" y="542" font-size="9" fill="#374151">Controlador</text>
+  <line x1="65" y1="560" x2="85" y2="560" stroke="#374151" stroke-width="1.5"/><text x="90" y="564" font-size="9" fill="#374151">Relación</text>
+  <line x1="65" y1="575" x2="85" y2="575" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="5,5"/><text x="90" y="579" font-size="9" fill="#374151">Polimórfica</text>
+  <text x="180" y="595" font-size="9" fill="#6b7280">1:N = Uno a Muchos</text>
+</svg>
